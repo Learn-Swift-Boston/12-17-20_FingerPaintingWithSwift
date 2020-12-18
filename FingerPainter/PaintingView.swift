@@ -57,12 +57,16 @@ class PaintingView: UIView {
     }
 
     // MARK: - Touches
-    var lastPoint: CGPoint?
+    var lastPoints: [CGPoint] = Array(repeating: CGPoint.zero, count: 4)
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
-        lastPoint = touches.first?.location(in: self)
+        guard let lastPoint = touches.first?.location(in: self) else { return }
+
+//        lastPoints.append(lastPoint)
+//        lastPoints = Array(lastPoints.dropFirst())
+        lastPoints = Array(repeating: lastPoint, count: 4)
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,38 +74,37 @@ class PaintingView: UIView {
 
         guard let newPoint = touches.first?.location(in: self) else { return }
 
-        drawSegment(to: newPoint)
+        lastPoints.append(newPoint)
+        lastPoints = Array(lastPoints.dropFirst())
+
+        drawSegment()
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
-        guard let newPoint = touches.first?.location(in: self) else { return }
-
-        drawSegment(to: newPoint)
+        drawSegment()
+        lastPoints = Array(repeating: CGPoint.zero, count: 4)
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
 
-        guard let newPoint = touches.first?.location(in: self) else { return }
-
-        drawSegment(to: newPoint)
+        drawSegment()
+        lastPoints = Array(repeating: CGPoint.zero, count: 4)
     }
 
     // MARK: Helpers
-    func drawSegment(to point: CGPoint) {
-        context.move(to: lastPoint!)
+    func drawSegment() {
         context.setStrokeColor(brushColor.cgColor)
         context.setLineWidth(10)
         context.setLineCap(.round)
         context.setLineJoin(.round)
-        context.addLine(to: point)
+        let path = CGPath.smoothedPathSegment(points: lastPoints)
+        context.addPath(path)
         context.strokePath()
 
         updateContents()
-
-        lastPoint = point
     }
 
     func updateContents() {
