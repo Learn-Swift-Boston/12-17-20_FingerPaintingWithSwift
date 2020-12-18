@@ -16,7 +16,7 @@
 		6D7C0E94258C2734007B84DE /* FingerPainterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C0E93258C2734007B84DE /* FingerPainterTests.swift */; };
 		6D7C0E9F258C2734007B84DE /* FingerPainterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C0E9E258C2734007B84DE /* FingerPainterUITests.swift */; };
 		6D7C0EB0258C2820007B84DE /* PaintingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C0EAF258C2820007B84DE /* PaintingView.swift */; };
-		6D7C0EBA258C4101007B84DE /* CGPathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7C0EB9258C4101007B84DE /* CGPathUtilities.swift */; };
+		CD08E49D258D3ED500339C74 /* CGPathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD08E49C258D3ED500339C74 /* CGPathUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		6D7C0E9E258C2734007B84DE /* FingerPainterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FingerPainterUITests.swift; sourceTree = "<group>"; };
 		6D7C0EA0258C2734007B84DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D7C0EAF258C2820007B84DE /* PaintingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintingView.swift; sourceTree = "<group>"; };
-		6D7C0EB9258C4101007B84DE /* CGPathUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPathUtilities.swift; path = ../../../../Downloads/CGPathUtilities.swift; sourceTree = "<group>"; };
+		CD08E49C258D3ED500339C74 /* CGPathUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPathUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 				6D7C0E87258C2734007B84DE /* LaunchScreen.storyboard */,
 				6D7C0E8A258C2734007B84DE /* Info.plist */,
 				6D7C0EAF258C2820007B84DE /* PaintingView.swift */,
-				6D7C0EB9258C4101007B84DE /* CGPathUtilities.swift */,
+				CD08E49C258D3ED500339C74 /* CGPathUtilities.swift */,
 			);
 			path = FingerPainter;
 			sourceTree = "<group>";
@@ -265,7 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D7C0E81258C2732007B84DE /* ViewController.swift in Sources */,
-				6D7C0EBA258C4101007B84DE /* CGPathUtilities.swift in Sources */,
+				CD08E49D258D3ED500339C74 /* CGPathUtilities.swift in Sources */,
 				6D7C0E7D258C2732007B84DE /* AppDelegate.swift in Sources */,
 				6D7C0EB0258C2820007B84DE /* PaintingView.swift in Sources */,
 				6D7C0E7F258C2732007B84DE /* SceneDelegate.swift in Sources */,
