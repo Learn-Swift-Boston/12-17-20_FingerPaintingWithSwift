@@ -9,16 +9,29 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var paintingView: PaintingView!
+    let picker = UIColorPickerViewController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        picker.delegate = self
+        picker.selectedColor = paintingView.brushColor
     }
 
     @IBAction func clearTapped(_ sender: Any) {
-        guard let drawingView = view as? PaintingView else { return }
-
-        drawingView.clearPainting()
+        paintingView.clearPainting()
     }
 
+    @IBAction func colorTapped(_ sender: Any) {
+
+        present(picker, animated: true, completion: nil)
+    }
 }
 
+extension ViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        paintingView.brushColor = viewController.selectedColor
+        viewController.dismiss(animated: true, completion: nil)
+    }
+}

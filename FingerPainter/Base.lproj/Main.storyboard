@@ -27,14 +27,30 @@
                                     <action selector="clearTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bPt-9c-33I"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0e-j3-tAB">
+                                <rect key="frame" x="16" y="60" width="50" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="EFU-at-ID2"/>
+                                    <constraint firstAttribute="width" constant="50" id="ha5-Kz-pON"/>
+                                </constraints>
+                                <state key="normal" title="Color"/>
+                                <connections>
+                                    <action selector="colorTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oDv-a6-ABq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="T0e-j3-tAB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="7S2-Q3-jF3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZHl-s5-ucH" secondAttribute="trailing" constant="16" id="AA1-nm-uXb"/>
                             <constraint firstItem="ZHl-s5-ucH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="Evv-7t-cMO"/>
+                            <constraint firstItem="T0e-j3-tAB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="ncx-pN-Ypx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="paintingView" destination="8bC-Xf-vdC" id="iUA-Q2-dJj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

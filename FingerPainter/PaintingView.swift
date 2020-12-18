@@ -14,6 +14,8 @@ let widthInPixels = Int(screenWidth * scale)
 let heightInPixels = Int(screenHeight * scale)
 
 class PaintingView: UIView {
+    var brushColor: UIColor = .black
+
     private let drawingLayer = CALayer()
     private let context: CGContext = {
         let context = CGContext(data: nil,
@@ -90,7 +92,7 @@ class PaintingView: UIView {
     // MARK: Helpers
     func drawSegment(to point: CGPoint) {
         context.move(to: lastPoint!)
-        context.setStrokeColor(UIColor.black.cgColor)
+        context.setStrokeColor(brushColor.cgColor)
         context.setLineWidth(10)
         context.setLineCap(.round)
         context.setLineJoin(.round)
