@@ -96,7 +96,11 @@ class PaintingView: UIView {
         context.addLine(to: point)
         context.strokePath()
 
-        drawingLayer.contents = context.makeImage()
+        let image = context.makeImage()
+        CATransaction.performWithoutAnimation {
+            drawingLayer.contents = image
+        }
+
         lastPoint = point
     }
 
@@ -121,4 +125,15 @@ class PaintingView: UIView {
 //        context.addPath(path.cgPath)
 //        context.fillPath()
 //    }
+}
+
+/// neat little util that removes the crossfade of drawing
+extension CATransaction {
+    static func performWithoutAnimation(_ block: () -> Void) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        block()
+        CATransaction.commit()
+    }
+
 }
