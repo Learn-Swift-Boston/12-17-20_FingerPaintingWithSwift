@@ -14,6 +14,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func clearTapped(_ sender: Any) {
+        guard let drawingView = view as? PaintingView else { return }
+
+        drawingView.clearPainting()
+    }
 
 }
 

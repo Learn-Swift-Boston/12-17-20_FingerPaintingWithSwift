@@ -45,7 +45,7 @@ class PaintingView: UIView {
     }
 
     private func commonInit() {
-        self.layer.addSublayer(drawingLayer)
+        self.layer.insertSublayer(drawingLayer, at: 0)
     }
 
     override func layoutSubviews() {
@@ -87,6 +87,7 @@ class PaintingView: UIView {
         drawSegment(to: newPoint)
     }
 
+    // MARK: Helpers
     func drawSegment(to point: CGPoint) {
         context.move(to: lastPoint!)
         context.setStrokeColor(UIColor.black.cgColor)
@@ -96,12 +97,24 @@ class PaintingView: UIView {
         context.addLine(to: point)
         context.strokePath()
 
+        updateContents()
+
+        lastPoint = point
+    }
+
+    func updateContents() {
         let image = context.makeImage()
         CATransaction.performWithoutAnimation {
             drawingLayer.contents = image
         }
+    }
 
-        lastPoint = point
+    // MARK: Functionality
+    func clearPainting() {
+        context.setFillColor(UIColor.white.cgColor)
+        context.fill(CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+
+        updateContents()
     }
 
     /// This is from us testing our specialized drawing context and layer
