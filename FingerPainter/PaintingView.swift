@@ -5,4 +5,120 @@
 //  Created by Matthew Dias on 12/17/20.
 //
 
-import Foundation
+import UIKit
+
+let scale = UIScreen.main.scale
+let screenWidth = UIScreen.main.bounds.width
+let screenHeight = UIScreen.main.bounds.height
+let widthInPixels = Int(screenWidth * scale)
+let heightInPixels = Int(screenHeight * scale)
+
+class PaintingView: UIView {
+    private let drawingLayer = CALayer()
+    private let context: CGContext = {
+        let context = CGContext(data: nil,
+                                width: widthInPixels,
+                                height: heightInPixels,
+                                bitsPerComponent: 8,
+                                bytesPerRow: widthInPixels * 8 * 4,
+                                space: CGColorSpaceCreateDeviceRGB(),
+                                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+
+        context.translateBy(x: 0, y: CGFloat(heightInPixels))
+        context.scaleBy(x: scale, y: -scale)
+        context.setFillColor(UIColor.white.cgColor)
+        context.fill(CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+
+        return context
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        commonInit()
+    }
+
+    private func commonInit() {
+        self.layer.addSublayer(drawingLayer)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        drawingLayer.frame = bounds
+    }
+
+    // MARK: - Touches
+    var lastPoint: CGPoint?
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        lastPoint = touches.first?.location(in: self)
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+
+        guard let newPoint = touches.first?.location(in: self) else { return }
+
+        drawSegment(to: newPoint)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        guard let newPoint = touches.first?.location(in: self) else { return }
+
+        drawSegment(to: newPoint)
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+
+        guard let newPoint = touches.first?.location(in: self) else { return }
+
+        drawSegment(to: newPoint)
+    }
+
+    func drawSegment(to point: CGPoint) {
+        context.move(to: lastPoint!)
+        context.setStrokeColor(UIColor.black.cgColor)
+        context.setLineWidth(10)
+        context.setLineCap(.round)
+        context.setLineJoin(.round)
+        context.addLine(to: point)
+        context.strokePath()
+
+        drawingLayer.contents = context.makeImage()
+        lastPoint = point
+    }
+
+    /// This is from us testing our specialized drawing context and layer
+//    override func didMoveToWindow() {
+//        super.didMoveToWindow()
+//
+//        context.setFillColor(red: 45/255, green: 164/255, blue: 200/255, alpha: 1)
+//        context.fillEllipse(in: CGRect(x: 100, y: 100, width: 120, height: 50))
+//        drawingLayer.contents = context.makeImage()
+//    }
+
+    /// This is from us discussing drawing with contexts
+//    override func draw(_ rect: CGRect) {
+//        guard let context = UIGraphicsGetCurrentContext() else { return }
+//
+//        context.setFillColor(red: 1, green: 0, blue: 0, alpha: 1)
+//        context.fill(CGRect(x: 32, y: 32, width: 75, height: 75))
+//
+//        let path = UIBezierPath(roundedRect: CGRect(x: 64, y: 64, width: 64, height: 64), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 10, height: 10))
+//        context.setFillColor(red: 0, green: 1, blue: 0, alpha: 1)
+//        context.addPath(path.cgPath)
+//        context.fillPath()
+//    }
+}
